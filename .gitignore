@@ -1,0 +1,7 @@
+# Large artifacts are hosted as GitHub release assets, NEVER committed to git.
+artifacts/
+staging/
+validate/
+*.tar.gz
+*.tgz
+*.jar
