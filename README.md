@@ -20,14 +20,22 @@ Companion to the client setup doc: `minecraft-airships-skylands-setup.md`.
 | **Persistence** | Railway volume mounted at `/data` |
 | **Connectivity** | Railway TCP proxy → `25565` |
 | **Memory** | 6 GB heap |
-| **Security** | `online-mode=TRUE`, whitelist enforced (InfantDropper) |
+| **Security** | `online-mode=TRUE`, whitelist enforced (`InfantDropper`, `Frezir`) |
+| **Connect** | `junction.proxy.rlwy.net:14968` |
+| **Railway** | project `minecraft-airships` in workspace *sleechie's Projects* (personal, not AMA) |
 
-The world and mods are **not** committed to git — they're attached to the
-GitHub **release** (`world.tar.gz` ≈ 936 MB, `mods.tgz` ≈ 77 MB) and pulled by
-the container on first boot. After first boot the world lives on the `/data`
-volume and is never re-fetched (`WORLD` only seeds when `/data/world` is absent).
-`GENERIC_PACK` (mods) is re-applied on every boot, so the mods asset must stay
-reachable.
+The world and mods are **not** committed to git — they were attached to the
+GitHub **release** and pulled by the container on first boot. After first boot
+the world lives on the `/data` volume and is never re-fetched (`WORLD` only seeds
+when `/data/world` is absent). `GENERIC_PACK` (mods) is re-applied on every boot,
+so the mods asset must stay reachable.
+
+> **Note:** `world.tar.gz` was **deleted from the release after first boot** for
+> privacy — the world now lives only on the Railway volume + Braden's local save
+> (`C:\Users\sleechie\dev\New World.zip`). Only `mods.tgz` (≈ 77 MB, ordinary
+> public mod jars) remains, because the server re-fetches it on every restart.
+> To re-seed the world onto a fresh volume: re-upload `world.tar.gz`, set
+> `FORCE_WORLD_COPY=TRUE` for one boot, then remove it.
 
 ### Environment variables (set on the Railway service)
 
